@@ -28,7 +28,7 @@ public class LimpiadorDeEntrada {
         public void soloEnteros(java.awt.event.KeyEvent evt, JTextField txtBox, int largo){
             try{
                 // probamos si es numero. Si no es, dispara excepcion.
-                Integer.parseInt(txtBox.getText());
+                Long.parseLong(txtBox.getText());
                 
                 // verificamos largo.
                 if(txtBox.getText().length()>=largo) {
@@ -47,7 +47,7 @@ public class LimpiadorDeEntrada {
             String texto = txtBox;
             
             try{
-                Integer.parseInt(txtBox);
+                Long.parseLong(txtBox);
                 return true;
             }
             catch(NumberFormatException ex){
@@ -73,14 +73,13 @@ public class LimpiadorDeEntrada {
         public boolean soloLetras(String txtBox){
             // Texto ingresado.
             String texto = txtBox;
-            boolean valido = false;
             
             // Creamos patron para detectar todo lo que no sea letras.
-            final Pattern p = Pattern.compile("[0-9.\\\\%\\$#\\@\\!\\)\\(\\^\\*\\+<>';:\\[_]");
+            final Pattern p = Pattern.compile("[0-9]\\.\\\\%\\$#\\@\\!\\)\\(\\^\\*\\+<>';:\\[_]");
             final Matcher m = p.matcher(texto);
             
             if (m.find()) {
-                return valido;
+                return false;
             }
             
             return true;
