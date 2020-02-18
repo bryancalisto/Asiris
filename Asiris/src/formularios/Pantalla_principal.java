@@ -1,7 +1,11 @@
 package formularios;
 
+import clases.AntiInyeccionSQL;
+import clases.ConectorDB;
 import clases.LimpiadorDeEntrada;
 import java.awt.Color;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -13,6 +17,8 @@ public class Pantalla_principal extends javax.swing.JFrame {
 
     boolean admin = false;
     LimpiadorDeEntrada limpiador = new LimpiadorDeEntrada();
+    AntiInyeccionSQL antiSQL = new AntiInyeccionSQL();
+    ConectorDB con = new ConectorDB();
     /**
      * Creates new form Pantalla_principal
      * @param es_admin
@@ -21,6 +27,7 @@ public class Pantalla_principal extends javax.swing.JFrame {
     public Pantalla_principal(){
         initComponents();
         this.setLocationRelativeTo(this); //Centrar pantalla  
+        jLabel3.setText("");
         
         if (!this.admin)
             btn_registrar_personal.setVisible(false); 
@@ -66,8 +73,8 @@ public class Pantalla_principal extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
+        comboSexo = new javax.swing.JComboBox();
+        comboIdentificacion = new javax.swing.JComboBox();
         jTextField1 = new javax.swing.JTextField();
         jTextField10 = new javax.swing.JTextField();
         jTextField11 = new javax.swing.JTextField();
@@ -78,6 +85,8 @@ public class Pantalla_principal extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jLabel23 = new javax.swing.JLabel();
+        comboProfesion = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         Opc_crear_usuario = new javax.swing.JPanel();
@@ -249,9 +258,9 @@ public class Pantalla_principal extends javax.swing.JFrame {
 
         jLabel21.setText("Dirección");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione", "Hombre", "Mujer" }));
+        comboSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione", "Hombre", "Mujer" }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione", "Cédula", "Pasaporte" }));
+        comboIdentificacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione", "Cédula", "Pasaporte" }));
 
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -311,6 +320,10 @@ public class Pantalla_principal extends javax.swing.JFrame {
             }
         });
 
+        jLabel23.setText("Profesión");
+
+        comboProfesion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
+
         javax.swing.GroupLayout Opc_regist_personalLayout = new javax.swing.GroupLayout(Opc_regist_personal);
         Opc_regist_personal.setLayout(Opc_regist_personalLayout);
         Opc_regist_personalLayout.setHorizontalGroup(
@@ -326,38 +339,43 @@ public class Pantalla_principal extends javax.swing.JFrame {
                         .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel17)
                             .addComponent(jLabel15))
+                        .addGap(14, 14, 14)
                         .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(Opc_regist_personalLayout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField11)
-                                    .addComponent(jTextField12)
-                                    .addComponent(jTextField13)
-                                    .addComponent(jTextField14)
-                                    .addComponent(jTextField15, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)))
-                            .addGroup(Opc_regist_personalLayout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextField11)
+                                .addComponent(jTextField12)
+                                .addComponent(jTextField13)
+                                .addComponent(jTextField14)
+                                .addComponent(jTextField15, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE))
+                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(Opc_regist_personalLayout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addGap(26, 26, 26)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(78, 78, 78)
                 .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(Opc_regist_personalLayout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(jLabel20))
-                    .addGroup(Opc_regist_personalLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
+                        .addGap(78, 78, 78)
                         .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(Opc_regist_personalLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel22)))
-                    .addGroup(Opc_regist_personalLayout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(149, Short.MAX_VALUE))
+                                .addGap(75, 75, 75)
+                                .addComponent(jLabel20))
+                            .addGroup(Opc_regist_personalLayout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel22)
+                                    .addGroup(Opc_regist_personalLayout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(comboProfesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(comboIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(Opc_regist_personalLayout.createSequentialGroup()
+                                .addGap(52, 52, 52)
+                                .addComponent(comboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(149, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Opc_regist_personalLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel23)
+                        .addGap(185, 185, 185))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Opc_regist_personalLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -383,7 +401,7 @@ public class Pantalla_principal extends javax.swing.JFrame {
                 .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
@@ -396,7 +414,7 @@ public class Pantalla_principal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -405,8 +423,11 @@ public class Pantalla_principal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
-                    .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(110, 110, 110)
+                    .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel23))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(comboProfesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(84, 84, 84)
                 .addComponent(jButton2)
                 .addContainerGap(167, Short.MAX_VALUE))
         );
@@ -629,61 +650,137 @@ public class Pantalla_principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField14ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // VALIDACIONES
-        if (jTextField1.getText().isEmpty())
+        String nombre1 = jTextField1.getText();
+        String nombre2 = jTextField10.getText();
+        String apellido1 = jTextField11.getText();
+        String apellido2 = jTextField12.getText();
+        String identificacion = jTextField13.getText();
+        String telefono = jTextField14.getText();
+        String direccion = antiSQL.limpiar_string(jTextField15.getText());
+    
+        // VALIDACIONES.
+        // Primer nombre.
+        if (nombre1.isEmpty())
         {
-            JOptionPane.showMessageDialog(this, "Ingrese un nombre");
+            JOptionPane.showMessageDialog(this, "Ingrese un nombre.");
+            return;
         }
-        else if (jTextField11.getText().isEmpty())
+        else if (limpiador.soloLetras(nombre1) && nombre1.length() >= 20){
+            JOptionPane.showMessageDialog(this, "Primer nombre no puede tener más de 20 caracteres.");
+            return;
+        }
+        // Segundo nombre
+        else if (!nombre2.isEmpty() && (!limpiador.soloLetras(nombre2) || nombre2.length() >= 20)){
+            JOptionPane.showMessageDialog(this, "Segundo nombre no puede tener más de 20 caracteres.");
+            return;
+        }
+        // Primer apellido.
+        else if (apellido1.isEmpty())
         {
-            JOptionPane.showMessageDialog(this, "Ingrese un apellido");
+            JOptionPane.showMessageDialog(this, "Ingrese un apellido.");
+            return;
         }
-        else if (jTextField13.getText().isEmpty())
+        else if (limpiador.soloLetras(apellido1) && apellido1.length() >= 20){
+            JOptionPane.showMessageDialog(this, "Primer apellido no puede tener más de 20 caracteres.");
+            return;
+        }
+        // Segundo apellido.
+        else if (!apellido2.isEmpty() && (!limpiador.soloLetras(apellido2) || apellido2.length() >= 20)){
+            JOptionPane.showMessageDialog(this, "Segundo apellido no puede tener más de 20 caracteres.");
+            return;
+        }
+        // Identificacion.
+        else if (identificacion.isEmpty())
         {
-            JOptionPane.showMessageDialog(this, "Ingrese un número de identificación");
+            JOptionPane.showMessageDialog(this, "Ingrese un número de identificación.");
+            return;
         }
-        else if (jTextField14.getText().isEmpty())
+        else if (!limpiador.ValidarCedula(identificacion)){
+            JOptionPane.showMessageDialog(this, "Ingrese un número de identificacion válido.");
+            return;
+        }
+        // Telefono.
+        else if (telefono.isEmpty())
         {
-            JOptionPane.showMessageDialog(this, "Ingrese un número de teléfono");
+            JOptionPane.showMessageDialog(this, "Ingrese un número de teléfono.");
+            return;
         }
-        else if (jTextField15.getText().isEmpty())
+        else if (!limpiador.soloEnteros(telefono) || telefono.length() > 10){
+            JOptionPane.showMessageDialog(this, "Ingrese un número de teléfono conformado sólo por números.");
+            return;
+        }
+        // Direccion.
+        else if (direccion.isEmpty())
         {
-            JOptionPane.showMessageDialog(this, "Ingrese una dirección");
+            JOptionPane.showMessageDialog(this, "Ingrese una dirección.");
+            return;
         }
+        // Tipo de identificacion.
+        else if (comboIdentificacion.getSelectedIndex() == 0){
+            JOptionPane.showMessageDialog(this, "Seleccione un tipo de documento de identificación.");
+            return;
+        }
+        // Sexo.
+        else if (comboSexo.getSelectedIndex() == 0){
+            JOptionPane.showMessageDialog(this, "Seleccione sexo.");
+            return;
+        }
+        // FIN VALIDACION.
+        
+        /////////////////////////////////////////////////////////////////////////////////// ADECUAR A BD.
+        // verificamos que cedula no este registrada.
+        String query = "SELECT cedula FROM trabajador where cedula='"+ identificacion +"'";
+        
+        ResultSet rs = con.consultar(query);
+        
+        try{
+            if (rs.next()){
+                JOptionPane.showMessageDialog(this, "Un trabajador con esa cedula ya ha sido registrado.");
+                return;
+            }
+        }
+        catch(SQLException ex)
+        {
+            JOptionPane.showMessageDialog(this, "Ha habido un error inesperado.");
+            return;
+        }
+        
+        // Insertamos nuevo trabajador.
+        query = "INSERT INTO trabajador (primer_nombre,segundo_nombre,primer_apellido,segundo_apellido,"
+                + ",identificacion,telefono,direccion, sexo, id_profesion) VALUES ('"+ nombre1 +"','"+
+                nombre2 +"','"+ apellido1 +"','" + apellido2 + "','" + identificacion + "','','','',"
+                + "'','','')";
+        
+        /////////////////////////////////////////////////////////////////////////////////////////
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    
+    // Consumimos evento de tecla presionada cuando el largo de la string es mayor al especificado.
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
         // TODO add your handling code here:
         limpiador.limitarLargo(evt, jTextField1, 20);
     }//GEN-LAST:event_jTextField1KeyTyped
 
     private void jTextField10KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField10KeyTyped
-        // TODO add your handling code here:
         limpiador.limitarLargo(evt, jTextField10, 20);
     }//GEN-LAST:event_jTextField10KeyTyped
 
     private void jTextField11KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField11KeyTyped
-        // TODO add your handling code here:
         limpiador.limitarLargo(evt, jTextField11, 20);
     }//GEN-LAST:event_jTextField11KeyTyped
 
     private void jTextField12KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField12KeyTyped
-        // TODO add your handling code here:
         limpiador.limitarLargo(evt, jTextField12, 20);
     }//GEN-LAST:event_jTextField12KeyTyped
 
     private void jTextField13KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField13KeyTyped
-        // TODO add your handling code here:
         limpiador.limitarLargo(evt, jTextField13, 10);
     }//GEN-LAST:event_jTextField13KeyTyped
 
     private void jTextField14KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField14KeyTyped
-        // TODO add your handling code here:
-        limpiador.limitarLargo(evt, jTextField14, 15);
+        limpiador.limitarLargo(evt, jTextField14, 10);
     }//GEN-LAST:event_jTextField14KeyTyped
 
     private void jTextField15KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField15KeyTyped
-        // TODO add your handling code here:
         limpiador.limitarLargo(evt, jTextField15, 60);
     }//GEN-LAST:event_jTextField15KeyTyped
     
@@ -739,13 +836,14 @@ public class Pantalla_principal extends javax.swing.JFrame {
     private javax.swing.JPanel Opc_regist_personal;
     private javax.swing.JButton btn_crear_usuario;
     private javax.swing.JButton btn_registrar_personal;
+    private javax.swing.JComboBox comboIdentificacion;
+    private javax.swing.JComboBox<String> comboProfesion;
+    private javax.swing.JComboBox comboSexo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -761,6 +859,7 @@ public class Pantalla_principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
