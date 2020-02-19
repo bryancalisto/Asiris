@@ -70,19 +70,40 @@ public class LimpiadorDeEntrada {
             }
         }
         
-        public boolean soloLetras(String txtBox){
-            // Texto ingresado.
-            String texto = txtBox;
+        public void soloLetras(java.awt.event.KeyEvent evt, JTextField txtb, int largo){
+            String texto = txtb.getText();
+            char caract = evt.getKeyChar();
             
-            // Creamos patron para detectar todo lo que no sea letras.
-            final Pattern p = Pattern.compile("[0-9]\\.\\\\%\\$#\\@\\!\\)\\(\\^\\*\\+<>';:\\[_]");
-            final Matcher m = p.matcher(texto);
-            
-            if (m.find()) {
-                return false;
+            if (!Character.isLetter(caract) || texto.length() >= largo){
+                evt.consume();
             }
+        }
+        
+        public void soloLetrasEspacios(java.awt.event.KeyEvent evt, JTextField txtb, int largo){
+            String texto = txtb.getText();
+            char caract = evt.getKeyChar();
             
-            return true;
+            if ((!Character.isLetter(caract) && !Character.isSpaceChar(caract)) || texto.length() >= largo){
+                evt.consume();
+            }
+        }
+        
+        public void soloNumeros(java.awt.event.KeyEvent evt, JTextField txtb, int largo){
+            String texto = txtb.getText();
+            char caract = evt.getKeyChar();
+            
+            if (!Character.isDigit(caract) || texto.length() >= largo){
+                evt.consume();
+            }
+        }
+        
+        public void NumerosLetrasEspacios(java.awt.event.KeyEvent evt, JTextField txtb, int largo){
+            String texto = txtb.getText();
+            char caract = evt.getKeyChar();
+            
+            if ((!Character.isDigit(caract) && !Character.isLetter(caract) && !Character.isSpaceChar(caract)) || texto.length() >= largo){
+                evt.consume();
+            }
         }
         
         public boolean ValidarCedula(String txtBox){
