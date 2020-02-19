@@ -235,7 +235,7 @@ public class Pantalla_principal extends javax.swing.JFrame {
                 .addComponent(btn_registrar_personal, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_crear_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         LayeredPane.setBackground(new java.awt.Color(204, 255, 204));
@@ -581,7 +581,7 @@ public class Pantalla_principal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnl_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(156, 156, 156)
+                .addGap(21, 21, 21)
                 .addComponent(LayeredPane)
                 .addGap(51, 51, 51))
         );
@@ -608,10 +608,9 @@ public class Pantalla_principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 24, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -660,33 +659,29 @@ public class Pantalla_principal extends javax.swing.JFrame {
     
         // VALIDACIONES.
         // Primer nombre.
-        if (nombre1.isEmpty())
+        if (nombre1.isEmpty() || nombre1.length() > 20)
         {
-            JOptionPane.showMessageDialog(this, "Ingrese un nombre.");
+            JOptionPane.showMessageDialog(this, "Ingrese un primer nombre válido.");
             return;
         }
-        else if (limpiador.soloLetras(nombre1) && nombre1.length() >= 20){
-            JOptionPane.showMessageDialog(this, "Primer nombre no puede tener más de 20 caracteres.");
+        
+        // Segundo nombre.
+        if (nombre2.isEmpty() || nombre2.length() > 20)
+        {
+            JOptionPane.showMessageDialog(this, "Ingrese un segundo nombre válido.");
             return;
         }
-        // Segundo nombre
-        else if (!nombre2.isEmpty() && (!limpiador.soloLetras(nombre2) || nombre2.length() >= 20)){
-            JOptionPane.showMessageDialog(this, "Segundo nombre no puede tener más de 20 caracteres.");
-            return;
-        }
+        
         // Primer apellido.
-        else if (apellido1.isEmpty())
+        else if (apellido1.isEmpty() || apellido1.length() > 20)
         {
-            JOptionPane.showMessageDialog(this, "Ingrese un apellido.");
-            return;
-        }
-        else if (limpiador.soloLetras(apellido1) && apellido1.length() >= 20){
-            JOptionPane.showMessageDialog(this, "Primer apellido no puede tener más de 20 caracteres.");
+            JOptionPane.showMessageDialog(this, "Ingrese un primer apellido válido.");
             return;
         }
         // Segundo apellido.
-        else if (!apellido2.isEmpty() && (!limpiador.soloLetras(apellido2) || apellido2.length() >= 20)){
-            JOptionPane.showMessageDialog(this, "Segundo apellido no puede tener más de 20 caracteres.");
+        else if(!apellido2.isEmpty() && apellido2.length() > 20)
+        {
+            JOptionPane.showMessageDialog(this, "Ingrese un segundo apellido válido.");
             return;
         }
         // Identificacion.
@@ -710,9 +705,9 @@ public class Pantalla_principal extends javax.swing.JFrame {
             return;
         }
         // Direccion.
-        else if (direccion.isEmpty())
+        else if (direccion.isEmpty() || direccion.length() > 60)
         {
-            JOptionPane.showMessageDialog(this, "Ingrese una dirección.");
+            JOptionPane.showMessageDialog(this, "Ingrese una dirección válida.");
             return;
         }
         // Tipo de identificacion.
@@ -756,32 +751,32 @@ public class Pantalla_principal extends javax.swing.JFrame {
     
     // Consumimos evento de tecla presionada cuando el largo de la string es mayor al especificado.
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
-        // TODO add your handling code here:
-        limpiador.limitarLargo(evt, jTextField1, 20);
+        limpiador.soloLetras(evt, jTextField1, 20);
     }//GEN-LAST:event_jTextField1KeyTyped
 
     private void jTextField10KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField10KeyTyped
-        limpiador.limitarLargo(evt, jTextField10, 20);
+        limpiador.soloLetras(evt, jTextField10, 20);
     }//GEN-LAST:event_jTextField10KeyTyped
 
     private void jTextField11KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField11KeyTyped
-        limpiador.limitarLargo(evt, jTextField11, 20);
+        limpiador.soloLetras(evt, jTextField11, 20);
     }//GEN-LAST:event_jTextField11KeyTyped
 
     private void jTextField12KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField12KeyTyped
-        limpiador.limitarLargo(evt, jTextField12, 20);
+        limpiador.soloLetras(evt, jTextField12, 20);
     }//GEN-LAST:event_jTextField12KeyTyped
 
     private void jTextField13KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField13KeyTyped
-        limpiador.limitarLargo(evt, jTextField13, 10);
+        limpiador.soloNumeros(evt, jTextField13, 10);
+        //limpiador.ValidarCedula(jTextField13.getText());
     }//GEN-LAST:event_jTextField13KeyTyped
 
     private void jTextField14KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField14KeyTyped
-        limpiador.limitarLargo(evt, jTextField14, 10);
+        limpiador.soloNumeros(evt, jTextField14, 10);
     }//GEN-LAST:event_jTextField14KeyTyped
 
     private void jTextField15KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField15KeyTyped
-        limpiador.limitarLargo(evt, jTextField15, 60);
+        limpiador.NumerosYLetras(evt, jTextField15, 60);
     }//GEN-LAST:event_jTextField15KeyTyped
     
     
