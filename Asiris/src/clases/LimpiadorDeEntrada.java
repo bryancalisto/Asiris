@@ -7,6 +7,9 @@ package clases;
 
 import javax.swing.JTextField;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -66,6 +69,17 @@ public class LimpiadorDeEntrada {
             }
             catch(NumberFormatException ex) 
             {
+                return false;
+            }
+        }
+        
+        // Valida formato de fecha valido.
+        public boolean fecha(String txt){
+            try{
+                Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(txt);
+                return true;
+            }
+            catch(Exception ex){
                 return false;
             }
         }
