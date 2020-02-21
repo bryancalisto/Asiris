@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import clases.Usuario;
 import clases.AntiInyeccionSQL;
+import com.sun.awt.AWTUtilities;
 import java.awt.event.KeyEvent;
           
 
@@ -32,6 +33,9 @@ public class Pantalla_acceso extends javax.swing.JFrame {
     public Pantalla_acceso() {
         initComponents();
         this.setLocationRelativeTo(null); //Centrar pantalla
+        AWTUtilities.setWindowOpaque(this, false);
+        TextPrompt usua = new TextPrompt("usuario", txb_usuario);
+        TextPrompt clav = new TextPrompt("clave", txb_clave);
     }
     
     // Objeto con metodos para eliminar caracteres peligrosos en entrada de usuario.
@@ -45,27 +49,23 @@ public class Pantalla_acceso extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         txb_usuario = new javax.swing.JTextField();
         txb_clave = new javax.swing.JPasswordField();
         btn_login_aceptar = new javax.swing.JButton();
         btn_login_cancelar = new javax.swing.JButton();
-        lbl_imagen_login = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(400, 275));
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("USUARIO");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, -1, -1));
+        txb_usuario.setFont(new java.awt.Font("Arial", 2, 16)); // NOI18N
+        getContentPane().add(txb_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 150, 160, 30));
 
-        jLabel2.setText("CLAVE");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, -1, -1));
-        getContentPane().add(txb_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, 160, -1));
-        getContentPane().add(txb_clave, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, 160, -1));
+        txb_clave.setFont(new java.awt.Font("Arial", 2, 16)); // NOI18N
+        getContentPane().add(txb_clave, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 160, 30));
 
         btn_login_aceptar.setText("ACEPTAR");
         btn_login_aceptar.setActionCommand("INGRESAR");
@@ -79,7 +79,7 @@ public class Pantalla_acceso extends javax.swing.JFrame {
                 btn_login_aceptarKeyPressed(evt);
             }
         });
-        getContentPane().add(btn_login_aceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 160, -1));
+        getContentPane().add(btn_login_aceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, 100, -1));
 
         btn_login_cancelar.setText("SALIR");
         btn_login_cancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -87,14 +87,16 @@ public class Pantalla_acceso extends javax.swing.JFrame {
                 btn_login_cancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_login_cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 160, -1));
+        getContentPane().add(btn_login_cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 100, -1));
 
-        lbl_imagen_login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/login.png"))); // NOI18N
-        getContentPane().add(lbl_imagen_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 280));
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("INGRESO AL SISTEMA");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setText("ACCESO AL SISTEMA");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoLogin.png"))); // NOI18N
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 370));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -190,7 +192,7 @@ public class Pantalla_acceso extends javax.swing.JFrame {
             }
             
         } catch (Exception e ) {
-            System.out.println("Error en obtencio de datos DB.");
+            System.out.println("Error en obtencio de datos DB: " +e);
         }
     }
     
@@ -244,9 +246,7 @@ public class Pantalla_acceso extends javax.swing.JFrame {
     private javax.swing.JButton btn_login_aceptar;
     private javax.swing.JButton btn_login_cancelar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel lbl_imagen_login;
     private javax.swing.JPasswordField txb_clave;
     private javax.swing.JTextField txb_usuario;
     // End of variables declaration//GEN-END:variables
