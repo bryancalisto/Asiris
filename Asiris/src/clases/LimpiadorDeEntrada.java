@@ -5,12 +5,16 @@
  */
 package clases;
 
+
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JTextField;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -163,22 +167,37 @@ public class LimpiadorDeEntrada {
             }
         }
         
-        public boolean validarFecha(JDateChooser dateChoo, String limInf){
+        public int validarFecha(JDateChooser dateChoo, String limInf, String limSup){ // limInf/limSup = limite inferior/superior
             String txt = ((JTextField)dateChoo.getDateEditor().getUiComponent()).getText();
+            txt = txt.replace('/', '-'); // los dos separadores que se aceptan.
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
+            Date fechaHoy = Calendar.getInstance().getTime();
+            Date limiteSup = null;
+            
             try {
                 Date date = formatter.parse(txt);
                 Date limiteInf = formatter.parse(limInf);
-                System.out.println("validarFecha: " + date);
-                if (date.after(limiteInf)){
-                    return false;
+                if (limSup != "0"){
+                     limiteSup = formatter.parse(limSup);
                 }
-                return true;
+                else
+                {
+                    limiteSup = fechaHoy;     // fecha de hoy.              
+                }
+                
+                System.out.println("validarFecha: " + date);
+                if (date.before(limiteInf)){
+                    return -2;
+                }
+                else if (date.after(limiteSup)){
+                    return -3;
+                }
+                
+                return 0;
 
             } catch (ParseException e) {
                 e.printStackTrace();
-                return false;
+                return -1;
             }
         }
 }

@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 public class Pantalla_principal extends javax.swing.JFrame {
 
     boolean admin = false;
+    int flagFecha;
     LimpiadorDeEntrada limpiador = new LimpiadorDeEntrada();
     AntiInyeccionSQL antiSQL = new AntiInyeccionSQL();
     ProvinciaCiudad provCiud = new ProvinciaCiudad();
@@ -62,19 +63,19 @@ public class Pantalla_principal extends javax.swing.JFrame {
         
         // Inicializamos elementos de panel opcion "registrar trabajador".
         // Provincias y cantones.
-        provCiud.cargarComboProvincias(comboProv);
+        //provCiud.cargarComboProvincias(comboProv);
         // Profesiones.
         String query = "SELECT ID_CARGO, NOMBRE_CARGO FROM CARGO";
-        ResultSet rs = con.consultar(query);
+        //ResultSet rs = con.consultar(query);
         
-        try{
-            while(rs.next()){
-                comboProfesion.addItem(rs.getString("NOMBRE_CARGO"));
-            }
-        }
-        catch(SQLException ex){
+        //try{
+        //    while(rs.next()){
+        //        comboProfesion.addItem(rs.getString("NOMBRE_CARGO"));
+        //    }
+        //}
+        //catch(SQLException ex){
             
-        }
+        //}
     }
 
     @SuppressWarnings("unchecked")
@@ -113,13 +114,13 @@ public class Pantalla_principal extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel23 = new javax.swing.JLabel();
         comboProfesion = new javax.swing.JComboBox<>();
-        dateChooNacim = new com.toedter.calendar.JDateChooser();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         comboProv = new javax.swing.JComboBox<>();
         comboCiud = new javax.swing.JComboBox<>();
-        dateChooIngreso = new com.toedter.calendar.JDateChooser();
         jLabel26 = new javax.swing.JLabel();
+        dateChooNacim = new com.toedter.calendar.JDateChooser();
+        dateChooIngreso = new com.toedter.calendar.JDateChooser();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         Opc_crear_usuario = new javax.swing.JPanel();
@@ -264,7 +265,7 @@ public class Pantalla_principal extends javax.swing.JFrame {
                 .addComponent(btn_registrar_personal, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_crear_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         LayeredPane.setBackground(new java.awt.Color(204, 255, 204));
@@ -360,15 +361,6 @@ public class Pantalla_principal extends javax.swing.JFrame {
 
         comboProfesion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE" }));
 
-        dateChooNacim.setDateFormatString("yyyy-MM-dd");
-        dateChooNacim.setMaxSelectableDate(new java.util.Date(1893477687000L));
-        dateChooNacim.setMinSelectableDate(new java.util.Date(-788896713000L));
-        dateChooNacim.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                dateChooNacimPropertyChange(evt);
-            }
-        });
-
         jLabel24.setText("Fecha nacimiento");
 
         jLabel25.setText("Lugar de nacimiento");
@@ -382,16 +374,25 @@ public class Pantalla_principal extends javax.swing.JFrame {
 
         comboCiud.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE" }));
 
+        jLabel26.setText("Fecha Ingreso ");
+
+        dateChooNacim.setDateFormatString("yyyy-MM-dd");
+        dateChooNacim.setMaxSelectableDate(new java.util.Date(4102466480000L));
+        dateChooNacim.setMinSelectableDate(new java.util.Date(-946749520000L));
+        dateChooNacim.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dateChooNacimPropertyChange(evt);
+            }
+        });
+
         dateChooIngreso.setDateFormatString("yyyy-MM-dd");
-        dateChooIngreso.setMaxSelectableDate(new java.util.Date(1893477687000L));
-        dateChooIngreso.setMinSelectableDate(new java.util.Date(-788896713000L));
+        dateChooIngreso.setMaxSelectableDate(new java.util.Date(4102466498000L));
+        dateChooIngreso.setMinSelectableDate(new java.util.Date(-946749502000L));
         dateChooIngreso.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 dateChooIngresoPropertyChange(evt);
             }
         });
-
-        jLabel26.setText("Fecha Ingreso ");
 
         javax.swing.GroupLayout Opc_regist_personalLayout = new javax.swing.GroupLayout(Opc_regist_personal);
         Opc_regist_personal.setLayout(Opc_regist_personalLayout);
@@ -409,8 +410,11 @@ public class Pantalla_principal extends javax.swing.JFrame {
                             .addComponent(jLabel18)
                             .addComponent(jLabel19)
                             .addGroup(Opc_regist_personalLayout.createSequentialGroup()
-                                .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(Opc_regist_personalLayout.createSequentialGroup()
+                                        .addComponent(jLabel14)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(Opc_regist_personalLayout.createSequentialGroup()
                                         .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(Opc_regist_personalLayout.createSequentialGroup()
@@ -431,27 +435,30 @@ public class Pantalla_principal extends javax.swing.JFrame {
                                             .addComponent(dateChooNacim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel26)))
-                        .addGap(12, 12, 12)
                         .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(Opc_regist_personalLayout.createSequentialGroup()
-                                .addGap(23, 23, 23)
-                                .addComponent(jLabel20))
-                            .addGroup(Opc_regist_personalLayout.createSequentialGroup()
                                 .addGap(12, 12, 12)
-                                .addComponent(jLabel23))
-                            .addComponent(comboProfesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dateChooIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(107, 107, 107))
+                                .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(Opc_regist_personalLayout.createSequentialGroup()
+                                        .addGap(23, 23, 23)
+                                        .addComponent(jLabel20))
+                                    .addGroup(Opc_regist_personalLayout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addComponent(jLabel23))
+                                    .addComponent(comboProfesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(Opc_regist_personalLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(dateChooIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(113, 113, 113))
                     .addGroup(Opc_regist_personalLayout.createSequentialGroup()
                         .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(Opc_regist_personalLayout.createSequentialGroup()
                                 .addComponent(comboProv, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(comboCiud, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel21)
-                            .addComponent(jLabel14))
-                        .addGap(194, 352, Short.MAX_VALUE))))
+                            .addComponent(jLabel21))
+                        .addGap(194, 353, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Opc_regist_personalLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -467,13 +474,10 @@ public class Pantalla_principal extends javax.swing.JFrame {
             .addGroup(Opc_regist_personalLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jLabel13)
-                .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Opc_regist_personalLayout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(jLabel14))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Opc_regist_personalLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(49, 49, 49)
+                .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(Opc_regist_personalLayout.createSequentialGroup()
@@ -508,12 +512,13 @@ public class Pantalla_principal extends javax.swing.JFrame {
                 .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
                     .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(8, 8, 8)
+                .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Opc_regist_personalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel24)
+                        .addComponent(jLabel26))
                     .addComponent(dateChooNacim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel24)
-                    .addComponent(dateChooIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel26))
+                    .addComponent(dateChooIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel25)
                 .addGap(19, 19, 19)
@@ -522,7 +527,7 @@ public class Pantalla_principal extends javax.swing.JFrame {
                     .addComponent(comboCiud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(61, 61, 61)
                 .addComponent(jButton2)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
 
         LayeredPane.add(Opc_regist_personal, "card3");
@@ -750,6 +755,9 @@ public class Pantalla_principal extends javax.swing.JFrame {
         String direccion = antiSQL.limpiar_string(jTextField15.getText());
     
         // VALIDACIONES.
+        int flagFechaNacim = limpiador.validarFecha(dateChooNacim,"1940-01-01","2000-01-01");
+        int flagFechaIngreso = limpiador.validarFecha(dateChooNacim,"1940-01-01","0");
+        
         // Primer nombre.
         if (nombre1.isEmpty() || nombre1.length() > 20)        
         {
@@ -814,14 +822,32 @@ public class Pantalla_principal extends javax.swing.JFrame {
             return;
         }
         // Fechas.
-        else if (!limpiador.validarFecha(dateChooNacim,"2001-01-01")){
+        else if (limpiador.validarFecha(dateChooNacim,"1940-01-01","2000-01-01") != 0){
             JOptionPane.showMessageDialog(this, "Seleccione una fecha de nacimiento válida.");
             return;
         }
-        else if (!limpiador.validarFecha(dateChooIngreso,"2001-01-01")){
-            JOptionPane.showMessageDialog(this, "Seleccione una fecha de ingreso a la instituciòn válida.");
-            return;
+        else if (flagFechaNacim != 0){
+            switch(flagFechaNacim){
+                case -2:
+                    JOptionPane.showMessageDialog(this, "Seleccione una fecha de nacimiento mayor a 1940.");
+                    break;
+                case -3:
+                    JOptionPane.showMessageDialog(this, "Seleccione una fecha de nacimiento válida.");
+                    break;
+            }
         }
+        
+        else if (flagFechaIngreso != 0){
+            switch(flagFechaIngreso){
+                case -2:
+                    JOptionPane.showMessageDialog(this, "Seleccione una fecha de ingreso mayor a 1940.");
+                    break;
+                case -3:
+                    JOptionPane.showMessageDialog(this, "Seleccione una fecha de ingreso válida.");
+                    break;
+            }
+        }
+        
         else if (comboProv.getSelectedIndex() == 0 || comboCiud.getSelectedIndex() == 0){
             JOptionPane.showMessageDialog(this, "Seleccione Provincia y canton de nacimiento.");
             return;
@@ -897,10 +923,10 @@ public class Pantalla_principal extends javax.swing.JFrame {
         Date fechaNacim = dateChooNacim.getDate();
         Instant hace18Anos = ZonedDateTime.now().minusYears(18).toInstant();
         if (!(fechaNacim == null)){
-            if (fechaNacim.toInstant().isAfter(hace18Anos) || fechaNacim.toInstant().isAfter(ZonedDateTime.now().toInstant())){
+            if (fechaNacim.toInstant().isAfter(ZonedDateTime.now().toInstant())){
                 JOptionPane.showMessageDialog(this, "Fecha seleccionada no válida");
                 Date today = Calendar.getInstance().getTime();
-                //dateChooNacim.setDate(today);
+                dateChooNacim.setDate(today);
             }
         }
     }//GEN-LAST:event_dateChooNacimPropertyChange
