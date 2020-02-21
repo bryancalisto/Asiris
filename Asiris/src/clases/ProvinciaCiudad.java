@@ -90,7 +90,7 @@ public class ProvinciaCiudad {
         ConectorDB con = new ConectorDB();
         
         //Consulta
-        String query = "SELECT * FROM Ciudad where Id_Provincia=" + String.valueOf(indiceProvincia);
+        String query = "SELECT * FROM Canton where Id_Provincia=" + String.valueOf(indiceProvincia);
         
         ResultSet rs = con.consultar(query);
         
@@ -111,9 +111,9 @@ public class ProvinciaCiudad {
         try{
             while(rs.next()){
                 // anadimos cada provincia y su id a la lista.
-                this.ciudades.add(new Ciudad(rs.getInt("Id_Ciudad"),rs.getString("Ciudad")));
+                this.ciudades.add(new Ciudad(rs.getInt("ID_CANTON"),rs.getString("CANTON")));
                 // anadimos items a combo.
-                cmbBox.addItem(rs.getString("Ciudad"));
+                cmbBox.addItem(rs.getString("CANTON"));
             }
         }
         catch( SQLException ex)

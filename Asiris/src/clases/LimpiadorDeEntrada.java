@@ -5,8 +5,17 @@
  */
 package clases;
 
+
+import com.toedter.calendar.JDateChooser;
 import javax.swing.JTextField;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -70,19 +79,51 @@ public class LimpiadorDeEntrada {
             }
         }
         
-        public boolean soloLetras(String txtBox){
-            // Texto ingresado.
-            String texto = txtBox;
-            
-            // Creamos patron para detectar todo lo que no sea letras.
-            final Pattern p = Pattern.compile("[0-9]\\.\\\\%\\$#\\@\\!\\)\\(\\^\\*\\+<>';:\\[_]");
-            final Matcher m = p.matcher(texto);
-            
-            if (m.find()) {
+        // Valida formato de fecha valido.
+        public boolean fecha(String txt){
+            try{
+                Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(txt);
+                return true;
+            }
+            catch(Exception ex){
                 return false;
             }
+        }
+        
+        public void soloLetras(java.awt.event.KeyEvent evt, JTextField txtb, int largo){
+            String texto = txtb.getText();
+            char caract = evt.getKeyChar();
             
-            return true;
+            if (!Character.isLetter(caract) || texto.length() >= largo){
+                evt.consume();
+            }
+        }
+        
+        public void soloLetrasEspacios(java.awt.event.KeyEvent evt, JTextField txtb, int largo){
+            String texto = txtb.getText();
+            char caract = evt.getKeyChar();
+            
+            if ((!Character.isLetter(caract) && !Character.isSpaceChar(caract)) || texto.length() >= largo){
+                evt.consume();
+            }
+        }
+        
+        public void soloNumeros(java.awt.event.KeyEvent evt, JTextField txtb, int largo){
+            String texto = txtb.getText();
+            char caract = evt.getKeyChar();
+            
+            if (!Character.isDigit(caract) || texto.length() >= largo){
+                evt.consume();
+            }
+        }
+        
+        public void NumerosLetrasEspacios(java.awt.event.KeyEvent evt, JTextField txtb, int largo){
+            String texto = txtb.getText();
+            char caract = evt.getKeyChar();
+            
+            if ((!Character.isDigit(caract) && !Character.isLetter(caract) && !Character.isSpaceChar(caract)) || texto.length() >= largo){
+                evt.consume();
+            }
         }
         
         public boolean ValidarCedula(String txtBox){
@@ -108,6 +149,55 @@ public class LimpiadorDeEntrada {
             catch(NumberFormatException ex) 
             {
                 return cedulaValida;
+            }
+        }
+        
+        public boolean validarFecha(JDateChooser dateChoo){
+            String txt = ((JTextField)dateChoo.getDateEditor().getUiComponent()).getText();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+            try {
+                Date date = formatter.parse(txt);
+                System.out.println(date);
+                return true;
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        
+        public int validarFecha(JDateChooser dateChoo, String limInf, String limSup){ // limInf/limSup = limite inferior/superior
+            String txt = ((JTextField)dateChoo.getDateEditor().getUiComponent()).getText();
+            txt = txt.replace('/', '-'); // los dos separadores que se aceptan.
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date fechaHoy = Calendar.getInstance().getTime();
+            Date limiteSup = null;
+            
+            try {
+                Date date = formatter.parse(txt);
+                Date limiteInf = formatter.parse(limInf);
+                if (limSup != "0"){
+                     limiteSup = formatter.parse(limSup);
+                }
+                else
+                {
+                    limiteSup = fechaHoy;     // fecha de hoy.              
+                }
+                
+                System.out.println("validarFecha: " + date);
+                if (date.before(limiteInf)){
+                    return -2;
+                }
+                else if (date.after(limiteSup)){
+                    return -3;
+                }
+                
+                return 0;
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return -1;
             }
         }
 }

@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 public class ConectorDB {
     
     // Credenciales.
-    private String url = "jdbc:sqlserver://FABRICIO\\MSSQLSERVER01:1433;databaseName=RolPAgos;user=sa;password=123;";
+    private String url = "jdbc:sqlserver://127.0.0.1:1433;databaseName=PROYECTO;user=sa;password=123;";
     // Objeto de conexion con la base de datos.
     //private Connection con = null;
     
