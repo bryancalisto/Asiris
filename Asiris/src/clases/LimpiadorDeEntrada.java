@@ -5,8 +5,10 @@
  */
 package clases;
 
+import com.toedter.calendar.JDateChooser;
 import javax.swing.JTextField;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
@@ -143,6 +145,40 @@ public class LimpiadorDeEntrada {
             catch(NumberFormatException ex) 
             {
                 return cedulaValida;
+            }
+        }
+        
+        public boolean validarFecha(JDateChooser dateChoo){
+            String txt = ((JTextField)dateChoo.getDateEditor().getUiComponent()).getText();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+            try {
+                Date date = formatter.parse(txt);
+                System.out.println(date);
+                return true;
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        
+        public boolean validarFecha(JDateChooser dateChoo, String limInf){
+            String txt = ((JTextField)dateChoo.getDateEditor().getUiComponent()).getText();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+            try {
+                Date date = formatter.parse(txt);
+                Date limiteInf = formatter.parse(limInf);
+                System.out.println("validarFecha: " + date);
+                if (date.after(limiteInf)){
+                    return false;
+                }
+                return true;
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return false;
             }
         }
 }
